@@ -60,8 +60,10 @@ vanilla charm, Juju would then call the config-changed hook, and nothing else.
 When a relation is added from the vanilla charm to a database charm, the first
 event is `database-relation-joined` the two units know about each other and the
 code should prepare communication between the two. After the join a
-`database-relation-changed` state is set, the two units have peer to peer
-communication.  
+`database-relation-changed` hook is fired, the two units have peer to peer
+communication. The `database-relation-changed` hook will trigger subsequently
+based on any new information being set during the conversation between the
+units.
 
 1. database-relation-joined
 1. database-relation-changed
