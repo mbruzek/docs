@@ -86,13 +86,13 @@ Recommended tags to help keep the charm store organized is outlined below:
 
 
 ### subordinate
-Boolean value denoting if the charm is a [`subordinate`](#TODO) if the charm is
+boolean value denoting if the charm is a [`subordinate`](#TODO) if the charm is
 subordinate, it must contain at least one `requires` relation with container
 scope.
 
 ### provides
 
-Yaml formatted list of relations that the charm provides to the model.
+yaml formatted list of relations that the charm provides to the model.
 
 ```yaml
 provides:
@@ -110,7 +110,7 @@ requires:
 
 ### peers
 
-Peer relationships are special in the sense that they are implied anytime you
+peer relationships are special in the sense that they are implied anytime you
 `juju add unit` to a service. If anything needs to be configured between the two
 units that may be running on separate hosts - such as sharing an NFS filesystem
 can be invoked over the peer relationship.
