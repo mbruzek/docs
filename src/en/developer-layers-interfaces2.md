@@ -2,6 +2,10 @@
 ## Communication Scopes
 
 When writing an interface, there is also the concept of a communication scope.
+Not to be confused with [relation scopes](developer-layers-interfaces.html#relation-scopes)
+which are strictly to define behavior of the relationship. Communication scopes
+define who is participating in a particular conversation among related services.
+
 There are three distinct flavors of scoping for a conversation. At times there
 will be fairly static information being transmitted between services - and this
 is a prime candidate for a [GLOBAL](#global) scope. If the information varies
@@ -134,6 +138,12 @@ def configure_website(website):
   website.configure(80)
 ```
 
+Note that you see an implicit object being passed in as `website`. This is a
+behavior pattern when using Interface Layers. As we programmed the configure
+method above in the HTTP Interface, this relation (as defined in [`metadata.yaml`]())
+thats implementing The interface is *website*. Thus we get an instance of the HTTP interface, as
+the website object, which we can then invoke the `configure()`` method defined above
+in our event/hook code.
 
 #### Writing the requires side
 

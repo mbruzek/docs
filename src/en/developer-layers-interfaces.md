@@ -57,6 +57,8 @@ You will typically only require a `container` scoped relation when programming
 an interface for a  subordinate charm, which by the nature of subordinates is
 co-located with the principal service it is related to on this interface.
 
+> Relation Scopes have nothing to do with communication scopes found when
+programming interface layers. More on that topic [here](develoer-layers-interfaces2.html#communication-scopes)
 
 ### Relationship Lifecycle
 
