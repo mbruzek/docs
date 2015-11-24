@@ -139,10 +139,30 @@ description: |
   - Auto-sharding for cloud-level scalability (Q209) High performance,
   scalability, and reasonable depth of functionality are the goals for the
   project.
-  subordinate: false
+  tags:
+      - databases
   provides:
+    nrpe-external-master:
+      interface: nrpe-external-master
+      scope: container
+    database:
+      interface: mongodb
+    configsvr:
+      interface: shard
+    data:
+      interface: block-storage
+      scope: container
+      optional: true
+    benchmark:
+      interface: benchmark
   requires:
+    mongos-cfg:
+      interface: shard
+    mongos:
+      interface: mongodb
   peers:
+    replica-set:
+      interface: mongodb-replica-set
   ```
 
 ## Note on other field names
