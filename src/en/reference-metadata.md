@@ -6,7 +6,7 @@ the following fields:
 
 ### name
 is the charm name, which is used to form the charm URL.
-M
+
   - It can only contain `a-z`, `0-9`, and `-`; must start with `a-z`; must not
     end with a `-`; and may only end with digits if the digits are _not_
     directly preceded by a space. Stick with names like `foo` and `foo-bar-baz`
