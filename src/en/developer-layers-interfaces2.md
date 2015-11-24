@@ -140,9 +140,9 @@ def configure_website(website):
 
 Note that you see an implicit object being passed in as `website`. This is a
 behavior pattern when using Interface Layers. As we programmed the configure
-method above in the HTTP Interface, this relation (as defined in [`metadata.yaml`]())
+method above in the HTTP Interface, this relation (as defined in [`metadata.yaml`](/reference-metadata.html))
 thats implementing The interface is *website*. Thus we get an instance of the HTTP interface, as
-the website object, which we can then invoke the `configure()`` method defined above
+the website object, which we can then invoke the `configure()` method defined above
 in our event/hook code.
 
 #### Writing the requires side
