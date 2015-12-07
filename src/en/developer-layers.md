@@ -131,8 +131,8 @@ from charms.reactive import set_state
 set_state('apache.available')
 ```
 
- ```bash
- charms.reactive set_state 'apache.available'
+```bash
+charms.reactive set_state 'apache.available'
 ```
 
 And subsequently subscribe to them:
