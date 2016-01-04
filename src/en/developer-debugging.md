@@ -10,17 +10,18 @@ process.
 
 Juju provides two commands [`juju debug-log`](#the-'debug-log'-command) and
 [`juju debug-hooks`](#the-'debug-hooks'-command) to help developers resolve
-problems in their code.  The [dhx debugging plugin](./developer-debug-dhx.html)
+problems in their code. The [dhx debugging plugin](./developer-debug-dhx.html)
 improves the debug-hooks experience by performing some common actions
 automatically. Or maybe you're having an issue with building from your charm
 layer, in which case the [debugging with layers](./developer-debug-layers.html)
 is where to look.
 
+
 ## The 'debug-log' command
 
 Logs are indispensable when it comes time to troubleshoot. View the log with
 the `juju debug-log` command. The output is a consolidation of all the Juju log
-files streaming in real time.  The logs show you detailed inner workings of Juju
+files streaming in real time. The logs show you detailed inner workings of Juju
 and any [`juju-log`](./reference-hook-tools.html#juju-log) messages that are
 run from the charm code.
 
@@ -30,15 +31,16 @@ details and [filtering](./troubleshooting-logs.html#advanced-filtering) options
 with the `juju debug-log` command.
 
 If the error has already passed by viewing the actual log files on the unit is
-helpful.  If you `juju ssh` to the unit you can view the Juju machine and unit
+helpful. If you `juju ssh` to the unit you can view the Juju machine and unit
 log files in the `/var/log/juju/` directory.
 
-##  The 'debug-hooks' command
 
-If a hook returns non-zero return code this puts the charm in error state and
-Juju halts execution of the event cycle.  The `juju debug-hooks` command accepts
+## The 'debug-hooks' command
+
+If a hook returns a non-zero return code this puts the charm in error state and
+Juju halts execution of the event cycle. The `juju debug-hooks` command accepts
 a unit and an optional list of hooks to debug (which must be named individually
-in a space-delimited list) or no hook names, causing all hooks to be debugged:  
+in a space-delimited list) or no hook names, causing all hooks to be debugged: 
 
 ```bash
 juju debug-hooks <service/unit> [hook-name hook-name2 ...]
@@ -51,14 +53,15 @@ check the `db-relation-joined` and `db-relation-broken` hooks:
 juju debug-hooks mysql/0 db-relation-joined db-relation-broken
 ```
 
-**Note:** It is possible and often desirable to run debug-hooks on more than
+!!! Note: It is possible and often desirable to run debug-hooks on more than
 one unit at a time. You should open a new terminal window for each.
+
 
 ## Running a debug session
 
 When you run the debug-hooks command, Juju creates a slightly customised `tmux`
 session on the machine running the requested unit (if you are unfamiliar with
-`tmux`, see the [primer](#what-on-earth-is-tmux?) at the end of this section).
+`tmux`, see the [primer](#what-is-tmux?) at the end of this section).
 
 The `tmux` session will start with window 0. This window does nothing other than
 keep the session alive (though it can be used, for example, to view the log
@@ -69,18 +72,18 @@ be debugged:
 
   - a new window will be attached to the tmux session.
   - the bottom left of the status bar will change to indicate the current hook
-that has been trapped.
+    that has been trapped.
   - the prompt will change to indicate the hook related to the window (e.g.
-`mysql/0:db-relation-joined %`)
-  - the shell will be running in the standard [hook
-environment](./authors-hook-environment.html).
+    `mysql/0:db-relation-joined %`)
+  - the shell will be running in the standard
+    [hook environment](./authors-hook-environment.html).
   - additionally, `$JUJU_HOOK_NAME` is set appropriately.
-  ![Image showing tmux debug hooks session](./media/authors-hook-debug-1.png)
+    ![Image showing tmux debug hooks session](./media/authors-hook-debug-1.png)
 
 To proceed, you should **manually execute the hook**, or perform whatever other
 actions you want. At any time during a debug-hooks window 1 session you can run
 any of the standard hooks (install, start, stop, config-changed, upgrade-charm)
-however you can not run any of the relation hooks - these should only be run
+however you cannot run any of the relation hooks - these should only be run
 during their respective trapped events.
 
 For example, for the `db-relation-joined` hook we mentioned above, you could
@@ -92,12 +95,12 @@ run:
 
 Whilst you are debugging a hook, it is possible that other hooks will be queued
 to run. Even hooks which are not in your list to debug will be suspended in the
-queue until you exit your current window. See the  special considerations below.
+queue until you exit your current window. See the special considerations below.
 
 The queue for pending hooks will restart once you exit the window with an `exit`
 command.
 
-**Note:** To allow Juju to continue processing events normally, you **must**
+!!! Note: To allow Juju to continue processing events normally, you **must**
 exit the hook execution window with the `exit` command, otherwise all further
 events on that unit will be paused indefinitely.
 
@@ -111,15 +114,16 @@ You can finish your debugging session by closing all windows in the tmux
 session. Make sure to exit appropriately from all hook windows before
 terminating.
 
+
 ## Debugging early hooks
 
 The `install`, `config-changed`, and `start` hooks often execute quite soon
 after the unit comes up, making it difficult to start a debug-hooks session in
-time to intercept them. If you're having difficulties, you can temporarily
-return an error code from your `install` hook (e.g. add an `exit 1` at the end
-of it), and start your session only when the unit reports an [error status
-](./authors-hook-errors.html). You should then run `juju resolved --retry` for
-the affected unit, and go back to the debug-hooks session to interact.
+time to intercept them. If you're having trouble, you can temporarily return an
+error code from your `install` hook (e.g. add an `exit 1` at the end of it),
+and start your session only when the unit reports an
+[error status](./authors-hook-errors.html). You should then run `juju resolved
+--retry` for the affected unit, and go back to the debug-hooks session.
 
 
 ## Special considerations
@@ -133,7 +137,7 @@ execution order directly (other than by erroring out of hooks you don't want to
 run yet, and retrying them later).
 
 
-## What on earth is tmux?
+## What is tmux?
 
 The Ubuntu images used by Juju also include a slightly customised version of
 [`tmux`, a terminal multiplexer](https://en.wikipedia.org/wiki/Tmux).
@@ -163,7 +167,7 @@ A session may look something like this:
 
 ![Image showing byobu and tmux ](./media/tmux-annotation.png)
 
-Key:
+Legend:
 
   1. The default prompt is changed to indicate the machine you are running on,
 and the hook that you are debugging.
@@ -174,16 +178,18 @@ and the hook that you are debugging.
   6. The end part of the status bar indicates uptime, load, processor, memory
 usage and the current date/time.
 
+
 ### Key bindings
 
 All of tmux's special functions can be run by pressing the `prefix-key` followed
 by another key or key combination. The default prefix-key for tmux is Control-b,
 but many users find this an unnecessary stretch. This version uses Control-a as
 the prefix key, which is a bit easier on the fingers and is also the same
-combination used by `screen`, an alternative terminal multiplexer.
+combination used by `screen`, a legacy terminal multiplexer.
 
 There are many key-combinations, not all of which are of use in the task at
 hand. Here are some of the ones you may find useful:
+
 
 #### Window-related:
 
@@ -213,5 +219,5 @@ hand. Here are some of the ones you may find useful:
 | Control-a ? | Show currently configured keys. |
 | Control-a : | Enter the command prompt (for tmux commands) |
 
-You can get more info on tmux and its commands at the [relevant Ubuntu manpage
-entry.](http://manpages.ubuntu.com/manpages/trusty/man1/tmux.1.html)
+You can get more info on tmux at the
+[Ubuntu manpage tmux entry](http://manpages.ubuntu.com/cgi-bin/search.py?q=tmux).

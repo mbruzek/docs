@@ -1,6 +1,6 @@
 Title: DHX: Customized Hook Debugging Environment Plugin
 
-# DHX: A Customized Hook Debugging Environment Plugin
+# DHX: A customized hook debugging environment plugin
 
 [DHX](https://github.com/juju/plugins/blob/master/juju-dhx) is a Juju plugin
 that allows you to fully and automatically customise the machines created by
@@ -192,7 +192,7 @@ file you add to the list of `sync_excludes` in your config will be skipped when
 performing the sync. The list also supports the use of wildcards.
 
 
-## Remote Paired Debugging
+## Remote paired debugging
 
 It can be useful to get another set of eyes on a problem, so DHX also
 makes it easy to do paired development when debugging charms. When creating a
